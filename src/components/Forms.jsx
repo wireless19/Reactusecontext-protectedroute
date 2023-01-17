@@ -1,6 +1,21 @@
 import React, { useState } from "react";
 
 function Form() {
+    const checkLabel = [1, 2, 3, 4, 5, 6];
+    const [permissions, setPermissions] = useState([]);
+
+    const handleCheck = (event) => {
+        var permissions_array = [...permissions];
+        if (event.target.checked) {
+            permissions_array = [...permissions, event.target.value];
+        } else {
+            permissions_array.splice(permissions.indexOf(event.target.value), 1);
+        }
+        setPermissions(permissions_array);
+
+    };
+
+
 
     const [selected, setSelected] = useState("Naira");
     const [selectedcryptos, setSelectedCryptos] = useState("BTC");
@@ -50,6 +65,28 @@ function Form() {
 
             <br />
             <input type="submit" value="Deposit" onClick={handleSubmit} />
+
+            <br />
+
+            {checkLabel.map(checNumb =>
+                <>
+                    <input
+                        type='checkbox'
+                        name="permission"
+                        id='permission'
+
+                        value={checNumb}
+                        onChange={handleCheck}
+
+                    />
+                    <span>{checNumb}</span>
+                    <br />
+                </>)}
+
+            <br />
+
+            {permissions.map(checValue =>
+                <h1>{checValue}</h1>)}
 
         </>
     );
