@@ -1,6 +1,17 @@
 import React, { useState } from "react";
+import moment from 'moment';
 
 function Form() {
+    const [value, setValue] = useState(moment().format('DD-MM-YYYY'));
+
+
+    const onChangeDate = e => {
+        const newDate = moment(new Date(e.target.value)).format('DD-MM-YYYY');
+        setValue(newDate);
+        console.log(newDate); //value picked from date picker
+    };
+
+
     const checkLabel = [1, 2, 3, 4, 5, 6];
     const [permissions, setPermissions] = useState([]);
 
@@ -29,6 +40,7 @@ function Form() {
         const amountValue = event.target.value;
 
         setAmount(amountValue);
+
     }
 
     function handleSubmit(event) {
@@ -87,6 +99,19 @@ function Form() {
 
             {permissions.map(checValue =>
                 <h1>{checValue}</h1>)}
+
+            <br />
+
+            <h1>{value}</h1>
+            {/* <h3>{new Date()}</h3> */}
+            {/* {moment(value).format('DD-MM-YYYY')} */}
+            <input
+                type="date"
+                value={value}
+                placeholder="dd-mm-yyyy"
+                onChange={onChangeDate}
+                min="01-01-2015"
+            />
 
         </>
     );
